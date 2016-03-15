@@ -2,11 +2,17 @@
 var http = require('http');
 var fs = require('fs');
 
-var requestListener = function (req, res) {
-	res.writeHead(200);	
-	fs.readFileSync(__dirname + '/fundstarter.html')
-}
+http.createServer(function (request, response) {
+	fs.readFile('fundstarter.html', function(error, content) {
+		if (error) {
+			response.writeHead(500);
+			response.end();
+		}
+		else {
+			response.writeHead(200, { 'Content-Type': 'text/html' });
+			response.end(content, 'utf-8');
+		}
+	});
+}).listen(8080);
 
-var server = http.createServer(requestListener);
-server.listen(8080);
 console.log('Server running on port: 8080');
