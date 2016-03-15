@@ -1,0 +1,15 @@
+
+var http = require('http');
+var fs = require('fs');
+
+var requestListener = function (req, res) {
+fs.readFile(__dirname + '/fundstarter.html', function(error, content) {
+                if (error) {
+                        console.log(error);
+                }
+        });
+}
+
+var server = http.createServer(requestListener);
+server.listen(8080);
+console.log('Server running on port: 8080');
